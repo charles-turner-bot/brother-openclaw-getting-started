@@ -128,6 +128,38 @@ A user's home folder is the normal place for personal files on macOS. Keeping se
 </details>
 
 <details>
+<summary><strong>Basics of using the terminal</strong></summary>
+
+The Terminal is a text-based way to tell your computer what to do.
+
+A few basics:
+
+- `~` means “your home folder”
+- `ls` means “list files here”
+- `cd folder-name` means “go into this folder”
+- `cd ..` means “go up one folder”
+- `pwd` means “show me where I am right now”
+
+Examples:
+
+```bash
+pwd
+ls
+cd ~/voice-transcription
+ls
+cd ..
+```
+
+That sequence means:
+
+1. show the current location
+2. list the files there
+3. go to the `voice-transcription` folder in your home directory
+4. list the files there
+5. go back up one level
+</details>
+
+<details>
 <summary><strong>What is nano?</strong></summary>
 
 `nano` is a simple text editor that runs inside Terminal.
