@@ -17,6 +17,34 @@ This guide assumes:
 - Node will be installed via **Pixi**
 - OpenClaw will be installed with npm using that Node
 
+## Cliff notes
+
+If Rich just wants the short version, the basic pipeline is:
+
+1. **Pixi** installs and manages software environments
+2. **Node** gets installed inside Pixi's setup
+3. **OpenClaw** gets installed using npm, which comes with Node
+4. **Telegram bot** gives Rich a simple way to talk to OpenClaw
+5. once that barebones setup works, Rich can ask OpenClaw to help read GitHub, explain errors, and gradually help configure more things
+
+A few practical ideas:
+
+- when setting up OpenClaw, Rich should configure it to use **OpenAI Codex** as the model/provider, since that is the setup path we followed
+- computers are very happy when instructions live in **plain text files** inside a user's home folder
+- if Rich needs to edit a text file from Terminal, **`nano`** is a simple editor to start with
+
+For example, a file in the user's home directory might live at:
+
+```bash
+~/notes.txt
+```
+
+And Rich could edit it in Terminal with:
+
+```bash
+nano ~/notes.txt
+```
+
 ## Quick explainer: what these words mean
 
 GitHub supports collapsible sections using HTML `<details>` blocks. That is the thing you were thinking of.
@@ -35,6 +63,14 @@ In this guide, we use it to install Node and to create a separate voice-transcri
 Node.js is the runtime that OpenClaw uses. You can think of it as the engine that runs JavaScript/TypeScript command-line apps.
 
 OpenClaw is distributed as a Node package, so Node has to be installed first.
+</details>
+
+<details>
+<summary><strong>What is OpenAI Codex in this setup?</strong></summary>
+
+In this guide, OpenAI Codex is the model/provider setup Rich should use for OpenClaw.
+
+That is the path we used together, and it is a sensible starting point for coding help, investigation, and general assistant work.
 </details>
 
 <details>
@@ -75,6 +111,22 @@ When you create an OpenClaw Telegram bot, BotFather is where you get the bot tok
 Whisper is a speech-to-text tool. It takes audio, like a Telegram voice note, and turns it into text.
 
 In this setup, we use a local Whisper install so Rich can send voice notes and OpenClaw can read them.
+</details>
+
+<details>
+<summary><strong>What is a text file, and why put it in the home folder?</strong></summary>
+
+A text file is just a plain file full of words, settings, or notes.
+
+A user's home folder is the normal place for personal files on macOS. Keeping setup notes and small config-related files there is simple and predictable.
+</details>
+
+<details>
+<summary><strong>What is nano?</strong></summary>
+
+`nano` is a simple text editor that runs inside Terminal.
+
+It is handy when Rich needs to edit a text file without learning a more advanced editor first.
 </details>
 
 ## Big-picture safety model
@@ -173,6 +225,18 @@ openclaw status
 ```
 
 If npm asks for admin permissions or suggests `sudo`, stop and fix the user-local Node/npm setup first. The goal is to keep this install inside the non-admin OpenClaw account.
+
+### 4.1 Choose OpenAI Codex during setup
+
+After OpenClaw is installed, run:
+
+```bash
+openclaw configure
+```
+
+During setup, choose **OpenAI Codex** as the provider/model path.
+
+That is the setup we used together, and it is the best default for this guide.
 
 ## 5. Run OpenClaw only inside this account
 
