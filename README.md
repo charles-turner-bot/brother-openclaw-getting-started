@@ -29,7 +29,7 @@ If you just want the short version, the basic pipeline is:
 
 A few practical ideas:
 
-- when setting up OpenClaw, configure it to use **OpenAI Codex** as the model/provider, since that is the setup path we followed
+- when setting up OpenClaw, configure it to use **OpenAI Codex** as the model/provider, since that is the setup path Charles and CTBot followed
 - computers are very happy when instructions live in **plain text files** inside a user's home folder
 - if you need to edit a text file from Terminal, **`nano`** is a simple editor to start with
 
@@ -74,7 +74,7 @@ OpenClaw is distributed as a Node package, so Node has to be installed first.
 
 In this guide, OpenAI Codex is the model/provider setup you should use for OpenClaw.
 
-That is the path we used together, and it is a sensible starting point for coding help, investigation, and general assistant work.
+That is the path Charles and CTBot used together, and it is a sensible starting point for coding help, investigation, and general assistant work.
 </details>
 
 <details>
@@ -274,7 +274,7 @@ openclaw configure
 
 During setup, choose **OpenAI Codex** as the provider/model path.
 
-That is the setup we used together, and it is the best default for this guide.
+That is the setup Charles and CTBot used together, and it is the best default for this guide.
 
 ## 5. Run OpenClaw only inside this account
 
@@ -328,7 +328,7 @@ A good default setup is:
 - DM policy: pairing
 - group replies only when mentioned
 
-That is roughly the setup we used.
+That is roughly the setup Charles and CTBot used.
 
 ### Start the gateway and approve the first DM
 
@@ -351,7 +351,7 @@ Pairing codes expire, so if one goes stale, just message the bot again and appro
 
 ## 7. Set up voice note transcription
 
-This is the part that took a bit of fiddling in our setup.
+This is the part that took a bit of fiddling in the setup Charles and CTBot used.
 
 The version that actually worked reliably was:
 
@@ -410,7 +410,7 @@ pixi run whisper --help
 
 ### Point OpenClaw at that transcription setup
 
-The working pattern we used was to configure OpenClaw audio transcription to call Whisper via Pixi instead of calling the Whisper binary directly.
+The working pattern Charles and CTBot used was to configure OpenClaw audio transcription to call Whisper via Pixi instead of calling the Whisper binary directly.
 
 That preserves the Pixi-managed environment, including `ffmpeg`.
 
@@ -454,7 +454,7 @@ Notes:
 
 - replace `RICH_USERNAME` with the actual macOS username for the OpenClaw account
 - the important part is **using `pixi run -m ... -x whisper`**
-- this is the detail that fixed transcription for us
+- this is the detail that fixed transcription for Charles and CTBot
 
 After updating config, restart OpenClaw and test by sending the bot a short Telegram voice note.
 
