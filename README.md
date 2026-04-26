@@ -16,7 +16,8 @@ Draft for Rich.
 - [Run OpenClaw only inside this account](#5-run-openclaw-only-inside-this-account) — keep the setup contained to one user
 - [Set up Telegram with BotFather](#6-set-up-telegram-with-botfather) — connect a Telegram bot for chatting with OpenClaw
 - [Set up voice note transcription](#7-set-up-voice-note-transcription) — make Telegram voice notes transcribe into text
-- [Stopping it when you want the laptop “back”](#8-stopping-it-when-you-want-the-laptop-back) — pause OpenClaw when not using it
+- [Preventing the laptop from going to sleep](#8-preventing-the-laptop-from-going-to-sleep) — keep the Mac awake when OpenClaw needs to stay available
+- [Stopping it when you want the laptop “back”](#9-stopping-it-when-you-want-the-laptop-back) — pause OpenClaw when not using it
 - [Suggested operating pattern](#suggested-operating-pattern) — a practical day-to-day way to run this
 - [Security checklist](#security-checklist) — quick sanity-check list
 - [Open questions / things to decide](#open-questions--things-to-decide) — choices that may depend on preference
@@ -511,9 +512,45 @@ Notes:
 
 After updating config, restart OpenClaw and test by sending the bot a short Telegram voice note.
 
-## 8. Stopping it when he wants the laptop “back”
+## 8. Preventing the laptop from going to sleep
 
-If he wants the machine to behave like a normal laptop for a while, the simplest option is to stop the OpenClaw gateway:
+If you want OpenClaw to stay available, you may also need to stop the Mac from going to sleep.
+
+There are two common ways to do that:
+
+1. use macOS's built-in `caffeinate` command
+2. install a keep-awake app such as **Amphetamine** from the App Store
+
+### Built-in option: caffeinate
+
+macOS includes a built-in command called `caffeinate` that can temporarily stop the machine from sleeping.
+
+For example:
+
+```bash
+caffeinate
+```
+
+That keeps the Mac awake for as long as that Terminal session stays open.
+
+This is the simplest built-in option and is probably worth trying first.
+
+### App option: Amphetamine
+
+If you want something friendlier than a Terminal command, **Amphetamine** is a well-known free Mac app for keeping the machine awake.
+
+It can be useful if OpenClaw is meant to stay available for long stretches.
+
+### Practical recommendation
+
+If this Mac is mostly a normal laptop that sometimes runs OpenClaw:
+
+- use `caffeinate` when needed, or
+- use Amphetamine if you want a cleaner keep-awake workflow
+
+## 9. Stopping it when you want the laptop “back”
+
+If you want the machine to behave like a normal laptop for a while, the simplest option is to stop the OpenClaw gateway:
 
 ```bash
 openclaw gateway stop
@@ -534,6 +571,7 @@ This is effectively the “stasis” mode.
 - normal day-to-day computing happens in the brother's usual macOS user
 - OpenClaw lives in the separate `openclaw` user
 - when needed, fast user switch into the OpenClaw user
+- keep the Mac awake when OpenClaw is expected to stay available
 - stop the gateway when OpenClaw should be inactive
 
 This is probably the best first version.
@@ -548,6 +586,7 @@ This is probably the best first version.
 - [ ] no unnecessary shared credentials between users
 - [ ] FileVault enabled on the Mac
 - [ ] macOS auto-updates enabled
+- [ ] Mac sleep behaviour considered (`caffeinate` or Amphetamine if needed)
 - [ ] OpenClaw stopped when not needed
 
 ## Open questions / things to decide
