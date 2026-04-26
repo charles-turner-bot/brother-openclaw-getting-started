@@ -45,9 +45,9 @@ And Rich could edit it in Terminal with:
 nano ~/notes.txt
 ```
 
-## Quick explainer: what these words mean
+## Definitions and basic computer stuff
 
-GitHub supports collapsible sections using HTML `<details>` blocks. That is the thing you were thinking of.
+These click-to-open sections explain a few terms Rich might not have seen before.
 
 <details>
 <summary><strong>What is Pixi?</strong></summary>
