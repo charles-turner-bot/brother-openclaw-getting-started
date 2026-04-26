@@ -17,6 +17,66 @@ This guide assumes:
 - Node will be installed via **Pixi**
 - OpenClaw will be installed with npm using that Node
 
+## Quick explainer: what these words mean
+
+GitHub supports collapsible sections using HTML `<details>` blocks. That is the thing you were thinking of.
+
+<details>
+<summary><strong>What is Pixi?</strong></summary>
+
+Pixi is a tool for installing and managing software environments.
+
+In this guide, we use it to install Node and to create a separate voice-transcription environment. The nice bit is that it keeps those tools more self-contained inside the OpenClaw user account.
+</details>
+
+<details>
+<summary><strong>What is Node?</strong></summary>
+
+Node.js is the runtime that OpenClaw uses. You can think of it as the engine that runs JavaScript/TypeScript command-line apps.
+
+OpenClaw is distributed as a Node package, so Node has to be installed first.
+</details>
+
+<details>
+<summary><strong>What is npm?</strong></summary>
+
+npm is the package manager that comes with Node.js.
+
+In this guide, npm is what installs OpenClaw itself.
+</details>
+
+<details>
+<summary><strong>What is sudo?</strong></summary>
+
+`sudo` is the macOS/Linux command for “run this command with administrator power”.
+
+For this setup, that is usually **not** what we want. If a step asks for `sudo`, that often means the install is trying to write outside the OpenClaw user account.
+</details>
+
+<details>
+<summary><strong>What is a standard/non-admin macOS user?</strong></summary>
+
+A standard user can use the Mac normally, but cannot freely change system-wide settings or install privileged software without an admin password.
+
+That is useful here because it reduces the damage OpenClaw could do if something went wrong.
+</details>
+
+<details>
+<summary><strong>What is BotFather?</strong></summary>
+
+BotFather is Telegram’s official bot for creating and managing other Telegram bots.
+
+When you create an OpenClaw Telegram bot, BotFather is where you get the bot token.
+</details>
+
+<details>
+<summary><strong>What is Whisper?</strong></summary>
+
+Whisper is a speech-to-text tool. It takes audio, like a Telegram voice note, and turns it into text.
+
+In this setup, we use a local Whisper install so Rich can send voice notes and OpenClaw can read them.
+</details>
+
 ## Big-picture safety model
 
 This setup is meant to reduce risk, not eliminate it.
