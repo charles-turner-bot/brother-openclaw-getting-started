@@ -2,6 +2,26 @@
 
 Draft for Rich.
 
+## Table of contents
+
+- [Goal](#goal) — what this guide is trying to achieve
+- [Cliff notes](#cliff-notes) — the short version of the whole setup
+- [Definitions and basic computer stuff](#definitions-and-basic-computer-stuff) — quick explainers for common terms
+- [Recommended setup](#recommended-setup) — the main installation path
+- [Create a dedicated macOS user](#1-create-a-dedicated-macos-user) — make a separate non-admin account for OpenClaw
+- [Open Terminal and install Pixi](#2-open-terminal-and-install-pixi) — install the first tool in the chain
+- [Install Node using Pixi](#3-install-node-using-pixi) — install Node in that account
+- [Install OpenClaw](#4-install-openclaw) — install the assistant itself
+- [Choose OpenAI Codex during setup](#41-choose-openai-codex-during-setup) — pick the same provider path Charles and CTBot used
+- [Run OpenClaw only inside this account](#5-run-openclaw-only-inside-this-account) — keep the setup contained to one user
+- [Set up Telegram with BotFather](#6-set-up-telegram-with-botfather) — connect a Telegram bot for chatting with OpenClaw
+- [Set up voice note transcription](#7-set-up-voice-note-transcription) — make Telegram voice notes transcribe into text
+- [Stopping it when you want the laptop “back”](#8-stopping-it-when-you-want-the-laptop-back) — pause OpenClaw when not using it
+- [Suggested operating pattern](#suggested-operating-pattern) — a practical day-to-day way to run this
+- [Security checklist](#security-checklist) — quick sanity-check list
+- [Open questions / things to decide](#open-questions--things-to-decide) — choices that may depend on preference
+- [Provisional recommendation](#provisional-recommendation) — the recommended first version
+
 ## Goal
 
 Set up OpenClaw on a Mac in a way that is:
