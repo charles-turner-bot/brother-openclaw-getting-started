@@ -19,19 +19,19 @@ This guide assumes:
 
 ## Cliff notes
 
-If Rich just wants the short version, the basic pipeline is:
+If you just want the short version, the basic pipeline is:
 
 1. **Pixi** installs and manages software environments
 2. **Node** gets installed inside Pixi's setup
 3. **OpenClaw** gets installed using npm, which comes with Node
-4. **Telegram bot** gives Rich a simple way to talk to OpenClaw
-5. once that barebones setup works, Rich can ask OpenClaw to help read GitHub, explain errors, and gradually help configure more things
+4. **Telegram bot** gives you a simple way to talk to OpenClaw
+5. once that barebones setup works, you can ask OpenClaw to help read GitHub, explain errors, and gradually help configure more things
 
 A few practical ideas:
 
-- when setting up OpenClaw, Rich should configure it to use **OpenAI Codex** as the model/provider, since that is the setup path we followed
+- when setting up OpenClaw, configure it to use **OpenAI Codex** as the model/provider, since that is the setup path we followed
 - computers are very happy when instructions live in **plain text files** inside a user's home folder
-- if Rich needs to edit a text file from Terminal, **`nano`** is a simple editor to start with
+- if you need to edit a text file from Terminal, **`nano`** is a simple editor to start with
 
 For example, a file in the user's home directory might live at:
 
@@ -52,9 +52,11 @@ These click-to-open sections explain a few terms Rich might not have seen before
 <details>
 <summary><strong>What is Pixi?</strong></summary>
 
-Pixi is a tool for installing and managing software environments.
+Pixi is a package manager and environment manager.
 
-In this guide, we use it to install Node and to create a separate voice-transcription environment. The nice bit is that it keeps those tools more self-contained inside the OpenClaw user account.
+A package manager is a tool for installing software and keeping track of the fiddly dependencies that software needs. We usually use package managers for programming tools because they handle a lot of the annoying plumbing for us.
+
+In this guide, we use Pixi to install Node and to create a separate voice-transcription environment. The nice bit is that it keeps those tools more self-contained inside the OpenClaw user account.
 </details>
 
 <details>
@@ -62,13 +64,15 @@ In this guide, we use it to install Node and to create a separate voice-transcri
 
 Node.js is the runtime that OpenClaw uses. You can think of it as the engine that runs JavaScript/TypeScript command-line apps.
 
+Node also comes with **npm**, which is the package manager used to install OpenClaw.
+
 OpenClaw is distributed as a Node package, so Node has to be installed first.
 </details>
 
 <details>
 <summary><strong>What is OpenAI Codex in this setup?</strong></summary>
 
-In this guide, OpenAI Codex is the model/provider setup Rich should use for OpenClaw.
+In this guide, OpenAI Codex is the model/provider setup you should use for OpenClaw.
 
 That is the path we used together, and it is a sensible starting point for coding help, investigation, and general assistant work.
 </details>
@@ -77,6 +81,8 @@ That is the path we used together, and it is a sensible starting point for codin
 <summary><strong>What is npm?</strong></summary>
 
 npm is the package manager that comes with Node.js.
+
+Package managers are the usual way to install programming software because they handle versioning, dependencies, and other behind-the-scenes setup steps for you.
 
 In this guide, npm is what installs OpenClaw itself.
 </details>
@@ -126,7 +132,7 @@ A user's home folder is the normal place for personal files on macOS. Keeping se
 
 `nano` is a simple text editor that runs inside Terminal.
 
-It is handy when Rich needs to edit a text file without learning a more advanced editor first.
+It is handy when you need to edit a text file without learning a more advanced editor first.
 </details>
 
 ## Big-picture safety model
@@ -257,7 +263,7 @@ confined to the OpenClaw account by default.
 
 ## 6. Set up Telegram with BotFather
 
-If Rich wants to talk to OpenClaw through Telegram, the cleanest route is a bot.
+If you want to talk to OpenClaw through Telegram, the cleanest route is a bot.
 
 ### Create the Telegram bot
 
