@@ -165,6 +165,39 @@ That sequence means:
 `nano` is a simple text editor that runs inside Terminal.
 
 It is handy when you need to edit a text file without learning a more advanced editor first.
+
+### How to open a file in nano
+
+To open or create a file:
+
+```bash
+nano ~/notes.txt
+```
+
+That means: “open the file called `notes.txt` in your home folder using nano.”
+
+If the file does not exist yet, nano will create it when you save.
+
+### How to use it
+
+- just start typing to add text
+- use the arrow keys to move around
+
+### How to save
+
+Press:
+
+- `Ctrl + O`
+
+Then press **Enter** to confirm the filename.
+
+### How to exit
+
+Press:
+
+- `Ctrl + X`
+
+If you made changes and have not saved them yet, nano will ask whether you want to save before exiting.
 </details>
 
 ## Big-picture safety model
