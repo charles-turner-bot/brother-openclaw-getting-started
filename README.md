@@ -2,6 +2,8 @@
 
 Draft for Rich.
 
+Same basic plan as before — just written in a slightly more relaxed way.
+
 ## Table of contents
 
 - [Goal](#goal) — what this guide is trying to achieve
@@ -27,9 +29,9 @@ Draft for Rich.
 
 Set up OpenClaw on a Mac in a way that is:
 
-- easy to install and maintain
-- good enough for day-to-day use
-- less risky than running it inside the main admin account
+- easy enough to install and maintain
+- good enough for normal day-to-day use
+- less risky than just running it in the main admin account
 
 This guide assumes:
 
@@ -48,7 +50,7 @@ If you just want the short version, the basic pipeline is:
 4. **Telegram bot** gives you a simple way to talk to OpenClaw
 5. once that barebones setup works, you can ask OpenClaw to help read GitHub, explain errors, and gradually help configure more things
 
-A few practical ideas:
+A few practical notes:
 
 - when setting up OpenClaw, configure it to use **OpenAI Codex** as the model/provider, since that is the setup path Charles and CTBot followed
 - computers are very happy when instructions live in **plain text files** inside a user's home folder
@@ -68,7 +70,7 @@ nano ~/notes.txt
 
 ## Definitions and basic computer stuff
 
-These click-to-open sections explain a few terms Rich might not have seen before.
+These click-to-open sections explain a few terms Rich might not have bumped into before.
 
 <details>
 <summary><strong>What is Pixi?</strong></summary>
@@ -77,7 +79,7 @@ Pixi is a package manager and environment manager.
 
 A package manager is a tool for installing software and keeping track of the fiddly dependencies that software needs. We usually use package managers for programming tools because they handle a lot of the annoying plumbing for us.
 
-In this guide, we use Pixi to install Node and to create a separate voice-transcription environment. The nice bit is that it keeps those tools more self-contained inside the OpenClaw user account.
+In this guide, we use Pixi to install Node and to create a separate voice-transcription environment. The nice bit is that it keeps those tools a bit more self-contained inside the OpenClaw user account.
 </details>
 
 <details>
@@ -223,7 +225,7 @@ If you made changes and have not saved them yet, nano will ask whether you want 
 
 ## Big-picture safety model
 
-This setup is meant to reduce risk, not eliminate it.
+This setup is meant to reduce risk, not magically eliminate it.
 
 What this helps with:
 
@@ -251,10 +253,10 @@ Create a dedicated user for OpenClaw, for example:
 - username: `openclaw`
 - account type: **Standard** (not Administrator)
 
-Why:
+Why bother:
 
-- keeps files, browser state, tokens, and config separate from the normal user
-- reduces the blast radius if something goes wrong
+- it keeps files, browser state, tokens, and config separate from the normal user
+- it reduces the blast radius if something goes wrong
 
 Notes:
 
@@ -299,7 +301,7 @@ which node
 which npm
 ```
 
-If `node` or `npm` is not found, close Terminal and open it again.
+If `node` or `npm` is not found, just close Terminal and open it again.
 
 ## 4. Install OpenClaw
 
@@ -316,7 +318,7 @@ openclaw --version
 openclaw status
 ```
 
-If npm asks for admin permissions or suggests `sudo`, stop and fix the user-local Node/npm setup first. The goal is to keep this install inside the non-admin OpenClaw account.
+If npm asks for admin permissions or suggests `sudo`, stop there and fix the user-local Node/npm setup first. The goal is to keep this install inside the non-admin OpenClaw account.
 
 ### 4.1 Choose OpenAI Codex during setup
 
@@ -349,7 +351,7 @@ confined to the OpenClaw account by default.
 
 ## 6. Set up Telegram with BotFather
 
-If you want to talk to OpenClaw through Telegram, the cleanest route is a bot.
+If you want to talk to OpenClaw through Telegram, the cleanest route is just to use a bot.
 
 ### Create the Telegram bot
 
@@ -382,7 +384,7 @@ A good default setup is:
 - DM policy: pairing
 - group replies only when mentioned
 
-That is roughly the setup Charles and CTBot used.
+That is roughly the setup Charles and CTBot used, and it’s a sensible place to start.
 
 ### Start the gateway and approve the first DM
 
@@ -405,7 +407,7 @@ Pairing codes expire, so if one goes stale, just message the bot again and appro
 
 ## 7. Set up voice note transcription
 
-This is the part that took a bit of fiddling in the setup Charles and CTBot used.
+This is the bit that took a little fiddling in the setup Charles and CTBot used.
 
 The version that actually worked reliably was:
 
@@ -415,7 +417,7 @@ The version that actually worked reliably was:
 
 ### Why this approach
 
-We first tried provider-based transcription, but the setup that ended up working cleanly was a local Whisper toolchain managed by Pixi.
+We first tried provider-based transcription, but the version that ended up behaving properly was a local Whisper toolchain managed by Pixi.
 
 That matters because Telegram voice notes arrive as audio files (commonly `.ogg`), and Whisper needs the right media tooling around it.
 
@@ -466,7 +468,7 @@ pixi run whisper --help
 
 The working pattern Charles and CTBot used was to configure OpenClaw audio transcription to call Whisper via Pixi instead of calling the Whisper binary directly.
 
-That preserves the Pixi-managed environment, including `ffmpeg`.
+That keeps the Pixi-managed environment intact, including `ffmpeg`.
 
 The relevant idea is:
 
@@ -533,7 +535,7 @@ caffeinate
 
 That keeps the Mac awake for as long as that Terminal session stays open.
 
-This is the simplest built-in option and is probably worth trying first.
+This is the simplest built-in option, and it’s probably the first thing worth trying.
 
 ### App option: Amphetamine
 
@@ -562,7 +564,7 @@ And later:
 openclaw gateway start
 ```
 
-This is effectively the “stasis” mode.
+This is basically the “stasis” mode.
 
 ## Suggested operating pattern
 
@@ -574,7 +576,7 @@ This is effectively the “stasis” mode.
 - keep the Mac awake when OpenClaw is expected to stay available
 - stop the gateway when OpenClaw should be inactive
 
-This is probably the best first version.
+This is probably the best first pass.
 
 ## Security checklist
 
