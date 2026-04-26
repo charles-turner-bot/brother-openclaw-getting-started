@@ -409,6 +409,11 @@ Pairing codes expire, so if one goes stale, just message the bot again and appro
 
 This is the bit that took a little fiddling in the setup Charles and CTBot used.
 
+It is also probably the point where this guide starts getting a bit more technical than Rich should have to wrestle with by himself. So if he gets this far, the sensible move is probably either:
+
+- get the bot to help walk through the details step by step, or
+- ask Charles to help with this section
+
 The version that actually worked reliably was:
 
 - keep Telegram as the chat channel
