@@ -80,7 +80,7 @@ Official docs:
 
 ### 3. Install Node using Pixi
 
-Initial plan:
+Install Node inside this user account with:
 
 ```bash
 pixi global install nodejs
@@ -91,16 +91,18 @@ Then confirm:
 ```bash
 node --version
 npm --version
+which node
+which npm
 ```
+
+If `node` or `npm` is not found, close Terminal and open it again.
 
 ## 4. Install OpenClaw
 
-Install OpenClaw from npm in the dedicated account.
-
-One likely path:
+Install OpenClaw from npm in the dedicated account:
 
 ```bash
-npm install -g openclaw
+npm install -g openclaw@latest
 ```
 
 Then confirm:
@@ -109,6 +111,8 @@ Then confirm:
 openclaw --version
 openclaw status
 ```
+
+If npm asks for admin permissions or suggests `sudo`, stop and fix the user-local Node/npm setup first. The goal is to keep this install inside the non-admin OpenClaw account.
 
 ## 5. Run OpenClaw only inside this account
 
@@ -127,7 +131,172 @@ This keeps:
 
 confined to the OpenClaw account by default.
 
-## 6. Stopping it when he wants the laptop “back”
+## 6. Set up Telegram with BotFather
+
+If Rich wants to talk to OpenClaw through Telegram, the cleanest route is a bot.
+
+### Create the Telegram bot
+
+1. Open Telegram.
+2. Start a chat with **@BotFather**.
+3. Run:
+
+```text
+/newbot
+```
+
+4. Follow the prompts to choose:
+   - a bot name
+   - a bot username ending in `bot`
+5. Save the bot token somewhere safe.
+
+### Connect that bot to OpenClaw
+
+Open Terminal in the `openclaw` user and run:
+
+```bash
+openclaw configure --section channels
+```
+
+Then enable Telegram and paste the bot token when prompted.
+
+A good default setup is:
+
+- Telegram enabled
+- DM policy: pairing
+- group replies only when mentioned
+
+That is roughly the setup we used.
+
+### Start the gateway and approve the first DM
+
+Start OpenClaw:
+
+```bash
+openclaw gateway start
+```
+
+Then send the bot a DM from Telegram.
+
+Because the default DM policy is usually **pairing**, approve the first conversation with:
+
+```bash
+openclaw pairing list telegram
+openclaw pairing approve telegram <CODE>
+```
+
+Pairing codes expire, so if one goes stale, just message the bot again and approve the fresh one.
+
+## 7. Set up voice note transcription
+
+This is the part that took a bit of fiddling in our setup.
+
+The version that actually worked reliably was:
+
+- keep Telegram as the chat channel
+- use a **local Whisper CLI** for transcription
+- run that Whisper CLI inside a **Pixi environment** so `ffmpeg` is available on `PATH`
+
+### Why this approach
+
+We first tried provider-based transcription, but the setup that ended up working cleanly was a local Whisper toolchain managed by Pixi.
+
+That matters because Telegram voice notes arrive as audio files (commonly `.ogg`), and Whisper needs the right media tooling around it.
+
+### Create a dedicated Pixi environment for transcription
+
+Make a separate folder for voice transcription work:
+
+```bash
+mkdir -p ~/voice-transcription
+cd ~/voice-transcription
+```
+
+Create a `pixi.toml` like this:
+
+```toml
+[workspace]
+authors = ["Rich"]
+channels = ["conda-forge"]
+name = "voice-transcription"
+platforms = ["osx-arm64", "osx-64"]
+version = "0.1.0"
+
+[tasks]
+transcribe = "mkdir -p transcripts && whisper --model small --output_format txt --output_dir transcripts"
+
+[dependencies]
+python = "3.11.*"
+pip = ">=26.0.1,<27"
+ffmpeg = ">=8.0.1,<9"
+
+[pypi-dependencies]
+openai-whisper = ">=20250625, <20250626"
+```
+
+Then install the environment:
+
+```bash
+pixi install
+```
+
+Optional quick smoke test:
+
+```bash
+pixi run whisper --help
+```
+
+### Point OpenClaw at that transcription setup
+
+The working pattern we used was to configure OpenClaw audio transcription to call Whisper via Pixi instead of calling the Whisper binary directly.
+
+That preserves the Pixi-managed environment, including `ffmpeg`.
+
+The relevant idea is:
+
+```json
+{
+  "tools": {
+    "media": {
+      "audio": {
+        "enabled": true,
+        "timeoutSeconds": 600,
+        "models": [
+          {
+            "type": "cli",
+            "command": "pixi",
+            "args": [
+              "run",
+              "-m",
+              "/Users/RICH_USERNAME/voice-transcription",
+              "-x",
+              "whisper",
+              "--model",
+              "small",
+              "--output_format",
+              "txt",
+              "--output_dir",
+              "/Users/RICH_USERNAME/voice-transcription/transcripts",
+              "{{MediaPath}}"
+            ],
+            "timeoutSeconds": 600
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+Notes:
+
+- replace `RICH_USERNAME` with the actual macOS username for the OpenClaw account
+- the important part is **using `pixi run -m ... -x whisper`**
+- this is the detail that fixed transcription for us
+
+After updating config, restart OpenClaw and test by sending the bot a short Telegram voice note.
+
+## 8. Stopping it when he wants the laptop “back”
 
 If he wants the machine to behave like a normal laptop for a while, the simplest option is to stop the OpenClaw gateway:
 
@@ -168,21 +337,20 @@ This is probably the best first version.
 
 ## Open questions / things to decide
 
-1. **Pixi global command**
-   - confirm exact package name / best install command for Node on macOS
-2. **Best OpenClaw install path**
-   - `npm install -g openclaw` may be fine, but we should confirm whether a user-local npm prefix is cleaner than a system-global install
-3. **Launch style**
+1. **Launch style**
    - manual start/stop only?
    - or install the gateway as a per-user service/login item?
-4. **How isolated should this really be?**
+2. **How isolated should this really be?**
    - separate user may be enough
    - if the risk tolerance is lower, a separate Mac mini / VM might be the better call
-5. **How much access should OpenClaw have?**
+3. **How much access should OpenClaw have?**
    - email?
    - GitHub?
    - Telegram only?
    - browser control?
+4. **How polished should voice transcription be?**
+   - just working locally via Whisper?
+   - or turn it into a cleaner reusable template/script later?
 
 ## Provisional recommendation
 
