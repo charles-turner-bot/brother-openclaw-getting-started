@@ -1,6 +1,6 @@
 # OpenClaw on macOS: getting started
 
-Draft for Charles's brother.
+Draft for Rich.
 
 ## Goal
 
@@ -58,13 +58,25 @@ Notes:
 - do **not** add passwordless sudo
 - do **not** share SSH keys or shell history between the normal user and the OpenClaw user
 
-### 2. Log into that user and install Pixi
+### 2. Open Terminal and install Pixi
 
-Install Pixi in the dedicated `openclaw` account.
+Log into the dedicated `openclaw` account, then open the **Terminal** app and run:
+
+```bash
+curl -fsSL https://pixi.sh/install.sh | sh
+```
+
+This is the install command shown on Pixi's site for macOS/Linux.
+
+Then restart Terminal, or open a fresh Terminal window, and confirm Pixi is available:
+
+```bash
+pixi --version
+```
 
 Official docs:
 
-- <https://pixi.sh/latest/>
+- <https://pixi.sh/latest/installation/>
 
 ### 3. Install Node using Pixi
 
